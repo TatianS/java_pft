@@ -11,7 +11,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void returnToHomePage() {
-    contactClick(By.xpath("//div/div[4]/div/i/a[2]"));
+    contactClick(By.linkText("home page"));
   }
 
   public void submitNewContractCreation() {
@@ -29,4 +29,19 @@ public class ContactHelper extends HelperBase {
     contactClick(By.linkText("add new"));
   }
 
+  public void initContactModification() {
+    contactClick(By.xpath("//table[@id='maintable']/tbody/tr[14]/td[8]/a/img"));
+  }
+
+  public void submitContactModification() {
+    contactClick(By.name("update"));
+  }
+
+  public void deleteSelectedContact() {
+    contactClick(By.xpath("//div[@id='content']/form[2]/input[2]"));
+  }
+
+  public void returnToHomePageAfterContactDeleted(){
+    contactClick(By.linkText("home"));
+  }
 }
