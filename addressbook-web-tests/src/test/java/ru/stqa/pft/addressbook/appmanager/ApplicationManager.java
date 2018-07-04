@@ -10,6 +10,7 @@ import org.openqa.selenium.remote.BrowserType;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
+
   WebDriver wd;
 
   private SessionHelper sessionHelper;
@@ -23,25 +24,23 @@ public class ApplicationManager {
     this.browser = browser;
   }
 
-
   public void init() {
     if (browser.equals(BrowserType.FIREFOX)) {
-    wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
-    }
-    else if (browser.equals(BrowserType.CHROME)) {
+      wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
+    } else if (browser.equals(BrowserType.CHROME)) {
       wd = new ChromeDriver();
+    } else if (browser.equals(BrowserType.EDGE)) {
+      wd = new EdgeDriver();
     }
-    else if (browser.equals(BrowserType.EDGE)) {
-      wd =new EdgeDriver();
-    }
-    wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/");
     groupHelper = new GroupHelper(wd);
-    contactHelper= new ContactHelper(wd);
+    contactHelper = new ContactHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
     sessionHelper.login("admin", "secret");
   }
+
   public void stop() {
     wd.quit();
   }
@@ -50,11 +49,11 @@ public class ApplicationManager {
     return groupHelper;
   }
 
-  public ContactHelper getContactHelper() {
-    return contactHelper;
-  }
-
   public NavigationHelper getNavigationHelper() {
     return navigationHelper;
+  }
+
+  public ContactHelper getContactHelper() {
+    return contactHelper;
   }
 }

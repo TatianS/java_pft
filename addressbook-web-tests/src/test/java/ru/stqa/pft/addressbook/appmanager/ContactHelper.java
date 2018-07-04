@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.NewContactData;
 
 public class ContactHelper extends HelperBase {
@@ -11,6 +12,9 @@ public class ContactHelper extends HelperBase {
   }
 
   public void returnToHomePage() {
+    if (isElementPresented(By.id("maintable"))){
+      return;
+    }
     contactClick(By.linkText("home page"));
   }
 
@@ -23,6 +27,10 @@ public class ContactHelper extends HelperBase {
     contactType(By.name("lastname"), newContactData.getLastName());
     contactType(By.name("home"), newContactData.getHomeTelephoneNumber());
     contactType(By.name("email"), newContactData.getEmail());
+
+    if (isElementPresent(By.name("group"))) {
+      new Select(wd.findElement(By.name("group"))).selectByVisibleText(newContactData.getGroup());
+    }
   }
 
   public void initNewContactCreation() {
@@ -43,5 +51,22 @@ public class ContactHelper extends HelperBase {
 
   public void returnToHomePageAfterContactDeleted(){
     contactClick(By.linkText("home"));
+  }
+
+  public boolean isThereAContact() {
+    return isElementPresented(By.name("selected[]"));
+  }
+
+  public void createContact (NewContactData contact) {
+    initNewContactCreation();
+    fillNewContractForm(new NewContactData("Test01", "Test02", "123", null, null));
+    submitNewContractCreation();
+    returnToHomePage();
+  }
+
+  public void deleteContact() {
+    initContactModification();
+    deleteSelectedContact();
+    returnToHomePageAfterContactDeleted();
   }
 }
