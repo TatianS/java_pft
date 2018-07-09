@@ -61,25 +61,40 @@ public class ContactHelper extends HelperBase {
     return isElementPresented(By.name("selected[]"));
   }
 
-  public void createContact (NewContactData contact) {
+  public void create(NewContactData contact) {
     initNewContactCreation();
     fillNewContractForm(contact);
     submitNewContractCreation();
     returnToHomePage();
   }
 
+  public void modify(int index, NewContactData contact) {
+    selectContact(index);
+    initContactModification();
+    fillNewContractForm(contact);
+    submitContactModification();
+    returnToHomePage();
+  }
+
+  public void delete(int index) {
+    selectContact(index);
+    initContactModification();
+    deleteSelectedContact();
+    returnToHomePageAfterContactDeleted();
+  }
+
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<NewContactData> getContactList() {
+  public List<NewContactData> list() {
     List<NewContactData> contacts = new ArrayList<NewContactData>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
       String firstname = element.findElement((By.xpath(".//td[3]"))).getText();
       String lastname = element.findElement(By.xpath(".//td[2]")).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-      NewContactData contact = new NewContactData(id, firstname, lastname, null,null, null);
+      NewContactData contact = new NewContactData().withId(id).withFirstName(firstname).withLastName(lastname);
       contacts.add(contact);
     }
     return contacts;

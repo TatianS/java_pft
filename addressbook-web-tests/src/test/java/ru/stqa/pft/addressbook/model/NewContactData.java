@@ -3,28 +3,12 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
   public class NewContactData {
-  private int id;
-  private final String firstName;
-  private final String lastName;
-  private final String homeTelephoneNumber;
-  private final String email;
+  private int id = Integer.MAX_VALUE;
+  private String firstName;
+  private String lastName;
+  private String homeTelephoneNumber;
+  private String email;
   private String group;
-
-  public NewContactData(int id, String firstName, String lastName, String homeTelephoneNumber, String email, String group) {
-    this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.homeTelephoneNumber = homeTelephoneNumber;
-    this.email = email;
-  }
-
-    public NewContactData(String firstName, String lastName, String homeTelephoneNumber, String email, String group) {
-      this.id = 0;
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.homeTelephoneNumber = homeTelephoneNumber;
-      this.email = email;
-    }
 
   public int getId() {
     return id;
@@ -50,8 +34,34 @@ import java.util.Objects;
     return group;
   }
 
-    public void setId(int id) {
-      this.id = id;
+  public NewContactData withId(int id) {
+    this.id = id;
+    return this;
+    }
+
+    public NewContactData withFirstName(String firstName) {
+      this.firstName = firstName;
+      return this;
+    }
+
+    public NewContactData withLastName(String lastName) {
+      this.lastName = lastName;
+      return this;
+    }
+
+    public NewContactData withHomeTelephoneNumber(String homeTelephoneNumber) {
+      this.homeTelephoneNumber = homeTelephoneNumber;
+      return this;
+    }
+
+    public NewContactData withEmail(String email) {
+      this.email = email;
+      return this;
+    }
+
+    public NewContactData withGroup(String group) {
+      this.group = group;
+      return this;
     }
 
     @Override
@@ -63,18 +73,17 @@ import java.util.Objects;
             '}';
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    NewContactData that = (NewContactData) o;
-    return  Objects.equals(id, that.id) &&
-            Objects.equals(firstName, that.firstName) &&
-            Objects.equals(lastName, that.lastName);
-  }
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      NewContactData that = (NewContactData) o;
+      return Objects.equals(firstName, that.firstName) &&
+              Objects.equals(lastName, that.lastName);
+    }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, firstName, lastName);
+    @Override
+    public int hashCode() {
+      return Objects.hash(firstName, lastName);
+    }
   }
-}
