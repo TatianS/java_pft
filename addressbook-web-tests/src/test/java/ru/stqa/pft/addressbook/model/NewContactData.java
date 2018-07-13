@@ -9,10 +9,20 @@ import java.util.Objects;
   private String homeTelephoneNumber;
   private String email;
   private String group;
+  private int index;
 
-  public int getId() {
+    public int getId() {
     return id;
   }
+
+    public int getIndex() {
+    return index;
+  }
+
+    public NewContactData withIndex(int index) {
+    this.index = index;
+    return this;
+    }
 
   public String getFirstName() {
     return firstName;

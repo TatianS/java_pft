@@ -5,6 +5,7 @@ import com.google.common.collect.ForwardingSet;
 import java.util.HashSet;
 import java.util.Set;
 
+@SuppressWarnings("WeakerAccess")
 public class Contacts extends ForwardingSet<NewContactData> {
 
   private Set<NewContactData> delegate;

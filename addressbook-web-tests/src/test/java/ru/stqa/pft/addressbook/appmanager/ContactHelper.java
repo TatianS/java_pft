@@ -9,6 +9,7 @@ import ru.stqa.pft.addressbook.model.NewContactData;
 
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 public class ContactHelper extends HelperBase {
 
   public ContactHelper(WebDriver wd) {
@@ -69,7 +70,6 @@ public class ContactHelper extends HelperBase {
   }
 
   public void modify(NewContactData contact) {
-    //selectContact(index);
     initContactModification();
     fillNewContractForm(contact);
     submitContactModification();
